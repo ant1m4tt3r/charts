@@ -1,0 +1,7 @@
+{
+  "name": "node-ejs",
+  "main": "app.js",
+  "dependencies": {
+    "express": "^4.6.1"
+  }
+}
