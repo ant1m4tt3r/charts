@@ -3,7 +3,7 @@ var json;
 $(document).ready(function() {
 
     $.getJSON("../data.json", function(j) {
-        console.log(j); // this will show the info it in firebug console
+        console.log(j);
         json = j;
         addPieChart("gender");
         addPieChart("device");
@@ -46,7 +46,6 @@ $(document).ready(function() {
         e.preventDefault();
         addColumnChart("device");
     });
-
 
     /*
      * POST
@@ -117,10 +116,13 @@ function addPieChart(container) {
  */
 function addBarChart(container) {
     var data;
+    var name;
     if (container == "device") {
         data = getDeviceData();
+        name = "Dispositivos";
     } else {
         data = getGenderData();
+        name = "Gênero";
     }
     var titles = [];
     for (var i = 0; i < data.length; i++) {
@@ -174,7 +176,7 @@ function addBarChart(container) {
             enabled: false
         },
         series: [{
-            name: 'Gênero',
+            name: name,
             data: data
         }]
     });
