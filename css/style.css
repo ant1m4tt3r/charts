@@ -37,6 +37,13 @@ p {
     vertical-align: middle;
 }
 
+.img-div {
+  width: 100%;
+  align-items: center;
+  align-content: center;
+  text-align: center;
+}
+
 .chart-btn {
     background-color: #4CAF50; /* Green */
     border: none;

@@ -12,7 +12,10 @@
     <script src="js/bootstrap/bootstrap.min.js"></script>
     <!-- highcharts -->
     <!-- <script src="https://code.highcharts.com/highcharts.src.js"></script> -->
-    <script src="js/Highcharts-5.0.10/code/highcharts.src.js"></script>
+    <!-- <script src="js/Highcharts-5.0.10/code/highcharts.src.js"></script> -->
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src="https://code.highcharts.com/modules/data.js"></script>
+    <script src="https://code.highcharts.com/modules/drilldown.js"></script>
     <!-- scripts -->
     <script src="js/main.js"></script>
     <!--Font awesome -->
@@ -38,6 +41,18 @@
                     <div class="regular-space"></div>
                     <div class="row">
                         <div class="col-md-12" style="min-width: 310px; height: 400px; margin: 0 auto">
+                            <div class="section-title">Palavras</div>
+                            <div class="regular-space-min"></div>
+                            <div class="btn-group" data-toggle="buttons">
+                                <form>
+                                    <button id="column-words" class="chart-btn"><i class="fa fa-bar-chart" aria-hidden="true"></i> Drilldown</button>
+                                    <button id="bar-words" class="chart-btn"><i class="fa fa-area-chart" aria-hidden="true"></i> Barra</button>
+                                </form>
+                            </div>
+                            <div class="regular-space-min"></div>
+                            <div id="words-container"></div>
+
+                            <div class="regular-space-max"></div>
                             <div class="section-title">Gênero</div>
                             <div class="regular-space-min"></div>
                             <div class="btn-group" data-toggle="buttons">
@@ -47,6 +62,7 @@
                                     <button id="column-gender" class="chart-btn"><i class="fa fa-bar-chart" aria-hidden="true"></i> Coluna</button>
                                 </form>
                             </div>
+                            <div class="regular-space-min"></div>
                             <div id="gender-container"></div>
 
                             <div class="regular-space-max"></div>
@@ -59,6 +75,7 @@
                                     <button id="column-device" class="chart-btn"><i class="fa fa-bar-chart" aria-hidden="true"></i> Coluna</button>
                                 </form>
                             </div>
+                            <div class="regular-space-min"></div>
                             <div id="device-container"></div>
 
                             <div class="regular-space-max"></div>
@@ -70,12 +87,26 @@
                                     <button id="column-post" class="chart-btn"><i class="fa fa-bar-chart" aria-hidden="true"></i> Coluna</button>
                                 </form>
                             </div>
+                            <div class="regular-space-min"></div>
                             <div id="post-container"></div>
+
+                            <div class="regular-space-max"></div>
+                            <div class="section-title">Publicadores</div>
+                            <div class="regular-space-min"></div>
+                            <div class="btn-group" data-toggle="buttons">
+                                <form>
+                                    <button id="pie-pub" class="chart-btn"><i class="fa fa-area-chart" aria-hidden="true"></i> Pizza</button>
+                                    <button id="column-pub" class="chart-btn"><i class="fa fa-bar-chart" aria-hidden="true"></i> Coluna</button>
+                                </form>
+                            </div>
+                            <div class="regular-space-min"></div>
+                            <div id="pub-container"></div>
 
                             <div class="regular-space-max"></div>
                             <div class="footer">
                                 <p>Made with { <i class="fa fa-coffee" aria-hidden="true"></i> } by <a href="https://hugoazevedosoares.github.io/" target="_blank">Hugo Azevedo</a></p>
                             </div>
+                            <div class="regular-space-min"></div>
                         </div>
                     </div>
                     <div class="col-md-2"></div>
