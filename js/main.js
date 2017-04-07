@@ -16,7 +16,6 @@ $(document).ready(function() {
 
     $.getJSON("../data.json", function(j) {
         json = j;
-        // console.log(json.despritors_in_posts);
         addDrillDown("words");
         addPieChart("gender");
         addBarChart("device");
@@ -423,7 +422,7 @@ function addDrillDown(container) {
         },
         yAxis: {
             title: {
-                text: 'Total percent market share'
+                text: 'Total de usos'
             }
 
         },
