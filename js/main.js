@@ -127,6 +127,14 @@ function addPieChart(container) {
         title: {
             text: null
         },
+        tooltip: {
+            headerFormat: '<span style="font-size:10px">{series.name}</span><table>',
+            pointFormat: '<tr><td style="color:{series.color};padding:0">{point.name}: </td>' +
+                '<td style="padding:0"><b>{point.y:.0f}</b></td></tr>',
+            footerFormat: '</table>',
+            shared: true,
+            useHTML: true
+        },
         plotOptions: {
             pie: {
                 allowPointSelect: true,
@@ -196,6 +204,14 @@ function addBarChart(container) {
             labels: {
                 overflow: 'justify'
             }
+        },
+        tooltip: {
+            headerFormat: '<span style="font-size:10px">{series.name}</span><table>',
+            pointFormat: '<tr><td style="color:{series.color};padding:0">{point.name}: </td>' +
+                '<td style="padding:0"><b>{point.y:.0f}</b></td></tr>',
+            footerFormat: '</table>',
+            shared: true,
+            useHTML: true
         },
         plotOptions: {
             column: {
@@ -352,8 +368,8 @@ function addColumnChart(container) {
             }
         },
         tooltip: {
-            headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
-            pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+            headerFormat: '<span style="font-size:12px">{point.key}</span><table>',
+            pointFormat: '<tr><td style="color:{series.color};padding:0"></td>' +
                 '<td style="padding:0"><b>{point.y:.0f}</b></td></tr>',
             footerFormat: '</table>',
             shared: true,
@@ -434,7 +450,7 @@ function addDrillDown(container) {
                 borderWidth: 0,
                 dataLabels: {
                     enabled: true,
-                    format: '{point.y:.1f}%'
+                    format: '{point.y:.0f}'
                 }
             }
         },
