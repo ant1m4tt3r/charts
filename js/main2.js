@@ -1,13 +1,6 @@
 var json;
-var metrica;
-var chart_type;
-var metrica_old;
-var chart_type_old;
 
 $(document).ready(function() {
-
-    metrica = "posts", chart_type = "area";
-    metrica_old = metrica, chart_type_old = chart_type;
 
     Highcharts.setOptions({
         colors: ['#6DB1BE',
@@ -23,104 +16,88 @@ $(document).ready(function() {
 
     $.getJSON("../data.json", function(j) {
         json = j;
-        addAreaChart("posts");
+        addDrillDown("words");
+        addPieChart("gender");
+        addBarChart("device");
+        addAreaChart("post");
+        addPieChart("pub");
     });
-
-    $('#btn-words').click(function(e) {
-        e.preventDefault();
-        metrica = "words";
-        addChart();
-    });
-
-    $('#btn-gender').click(function(e) {
-        e.preventDefault();
-        metrica = "gender";
-        addChart();
-    });
-
-    $('#btn-device').click(function(e) {
-        e.preventDefault();
-        metrica = "device";
-        addChart();
-    });
-
-    $('#btn-posts').click(function(e) {
-        e.preventDefault();
-        metrica = "posts";
-        addChart();
-    });
-
-    $('#btn-publishers').click(function(e) {
-        e.preventDefault();
-        metrica = "publishers";
-        console.log("PUB")
-        addChart();
-    });
-
 
     /*
-     * chart_type
+     * GENDER
      */
-    $('#btn-pie').click(function(e) {
+    $('#pie-gender').click(function(e) {
         e.preventDefault();
-        chart_type = "pie";
-        addChart();
+        addPieChart("gender");
     });
 
-    $('#btn-area').click(function(e) {
+    $('#bar-gender').click(function(e) {
         e.preventDefault();
-        chart_type = "area";
-        addChart();
+        addBarChart("gender");
     });
 
-    $('#btn-column').click(function(e) {
+    $('#column-gender').click(function(e) {
         e.preventDefault();
-        chart_type = "column";
-        addChart();
+        addColumnChart("gender");
     });
 
-    $('#btn-drilldown').click(function(e) {
+    /*
+     * DEVICE
+     */
+    $('#pie-device').click(function(e) {
         e.preventDefault();
-        chart_type = "drilldown";
-        addChart();
+        addPieChart("device");
     });
 
-    $('#btn-bar').click(function(e) {
+    $('#bar-device').click(function(e) {
         e.preventDefault();
-        chart_type = "bar";
-        addChart();
+        addBarChart("device");
+    });
+
+    $('#column-device').click(function(e) {
+        e.preventDefault();
+        addColumnChart("device");
+    });
+
+    /*
+     * POST
+     */
+    $('#column-post').click(function(e) {
+        e.preventDefault();
+        addColumnChart("post");
+    });
+
+    $('#area-post').click(function(e) {
+        e.preventDefault();
+        addAreaChart("post");
+    });
+
+    /*
+     * PUBLISHERS
+     */
+    $('#pie-pub').click(function(e) {
+        e.preventDefault();
+        addPieChart("pub");
+    });
+
+    $('#column-pub').click(function(e) {
+        e.preventDefault();
+        addColumnChart("pub");
+    });
+
+    /*
+     * WORDS
+     */
+    $('#column-words').click(function(e) {
+        e.preventDefault();
+        addDrillDown("words");
+    });
+    $('#bar-words').click(function(e) {
+        e.preventDefault();
+        addBarChart("words");
     });
 
 });
-
-function addChart() {
-    console.log("old: " + metrica_old + " - " + chart_type_old);
-    console.log("new: " + metrica + " - " + chart_type);
-    if ((metrica != metrica_old) || (chart_type != chart_type_old)) {
-        switch (chart_type) {
-            case "pie":
-                addPieChart(metrica);
-                break;
-            case "area":
-                addAreaChart(metrica);
-                break;
-            case "column":
-                addColumnChart(metrica);
-                break;
-            case "drilldown":
-                addDrillDown(metrica);
-                break;
-            case "bar":
-                addBarChart(metrica);
-                break;
-            default:
-                alert("Gráfico indisponível")
-                break;
-        }
-    }
-    metrica_old = metrica;
-    chart_type_old = chart_type;
-}
 
 /*
  * Pie chart
@@ -135,18 +112,11 @@ function addPieChart(container) {
     } else if (container == "gender") {
         name = "Gênero";
         data = getGenderData();
-    } else if (container == "publishers") {
+    } else if (container == "pub") {
         name = "Publicadores";
         data = getPubData();
-    } else if (container == "words") {
-        name = "Palavras";
-        data = getWordDataTotal();
-    } else {
-        $('#chart-container').html("");
-        $('#chart-container').append("<p style='text-align:center'>Sem vizualização disponível</p>");
-        return;
     }
-    Highcharts.chart('chart-container', {
+    Highcharts.chart(container + '-container', {
         chart: {
             backgroundColor: '#f5f5f5',
             plotBackgroundColor: '#f5f5f5',
@@ -201,19 +171,15 @@ function addBarChart(container) {
     } else if (container == "gender") {
         data = getGenderData();
         name = "Gênero";
-    } else if (container == "words") {
+    } else {
         data = getWordDataTotal();
         name = "Palavras";
-    } else {
-        $('#chart-container').html("");
-        $('#chart-container').append("<p style='text-align:center'>Sem vizualização disponível</p>");
-        return;
     }
     var titles = [];
     for (var i = 0; i < data.length; i++) {
         titles[i] = data[i][0];
     }
-    Highcharts.chart('chart-container', {
+    Highcharts.chart(container + '-container', {
         chart: {
             backgroundColor: '#f5f5f5',
             plotBackgroundColor: '#f5f5f5',
@@ -283,11 +249,6 @@ function addBarChart(container) {
  *
  */
 function addAreaChart(container) {
-    if (container != "posts") {
-        $('#chart-container').html("");
-        $('#chart-container').append("<p style='text-align:center'>Sem vizualização disponível</p>");
-        return;
-    }
     var data = [];
     var titles = [];
     var post = getPostData();
@@ -296,7 +257,7 @@ function addAreaChart(container) {
         titles[i] = post[i][0];
         data[i] = post[i][1];
     }
-    Highcharts.chart('chart-container', {
+    Highcharts.chart(container + '-container', {
         chart: {
             backgroundColor: '#f5f5f5',
             plotBackgroundColor: '#f5f5f5',
@@ -366,33 +327,15 @@ function addColumnChart(container) {
     } else if (container == "gender") {
         name = "Gêneros";
         dados = getGenderData();
-    } else if (container == "publishers") {
+    } else {
         name = "Publicadores";
         dados = getPubData();
-    } else if (container == "words") {
-        name = "Palavras";
-    } else {
-        $('#chart-container').html("");
-        $('#chart-container').append("<p style='text-align:center'>Sem vizualização disponível</p>");
-        return;
     }
-    if (container == "words") {
-        var words = getWordData();
-        var serie = [];
-        for (var i = 0; i < words.length; i++) {
-            titles[i] = words[i].name;
-            data[i] = {
-                name: words[i].name,
-                y: words[i].total,
-            }
-        }
-    } else {
-        for (var i = 0; i < dados.length; i++) {
-            titles[i] = dados[i][0];
-            data[i] = dados[i][1];
-        }
+    for (var i = 0; i < dados.length; i++) {
+        titles[i] = dados[i][0];
+        data[i] = dados[i][1];
     }
-    Highcharts.chart('chart-container', {
+    Highcharts.chart(container + '-container', {
         chart: {
             backgroundColor: '#f5f5f5',
             plotBackgroundColor: '#f5f5f5',
@@ -449,11 +392,6 @@ function addColumnChart(container) {
  * COLUMN DRILLDOWN
  */
 function addDrillDown(container) {
-    if (container != "words") {
-        $('#chart-container').html("");
-        $('#chart-container').append("<p style='text-align:center'>Sem vizualização disponível</p>");
-        return;
-    }
     var words = getWordData();
     var serie = [];
     var drilldown = [];
@@ -484,7 +422,7 @@ function addDrillDown(container) {
             ]
         }
     }
-    Highcharts.chart('chart-container', {
+    Highcharts.chart(container + '-container', {
         chart: {
             backgroundColor: '#f5f5f5',
             plotBackgroundColor: '#f5f5f5',
