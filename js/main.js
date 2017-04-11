@@ -142,8 +142,7 @@ function addPieChart(container) {
         name = "Palavras";
         data = getWordDataTotal();
     } else {
-        $('#chart-container').html("");
-        $('#chart-container').append("<p style='text-align:center'>Sem vizualização disponível</p>");
+        noView();
         return;
     }
     Highcharts.chart('chart-container', {
@@ -196,17 +195,22 @@ function addBarChart(container) {
     var data;
     var name;
     if (container == "device") {
-        data = getDeviceData();
         name = "Dispositivos";
+        data = getDeviceData();
     } else if (container == "gender") {
-        data = getGenderData();
         name = "Gênero";
+        data = getGenderData();
     } else if (container == "words") {
-        data = getWordDataTotal();
         name = "Palavras";
+        data = getWordDataTotal();
+    } else if (container == "publishers") {
+        name = "Publicadores";
+        data = getPubData();
+    } else if (container == "posts") {
+        name = "Postagens";
+        data = getPostData();
     } else {
-        $('#chart-container').html("");
-        $('#chart-container').append("<p style='text-align:center'>Sem vizualização disponível</p>");
+        noView();
         return;
     }
     var titles = [];
@@ -284,8 +288,7 @@ function addBarChart(container) {
  */
 function addAreaChart(container) {
     if (container != "posts") {
-        $('#chart-container').html("");
-        $('#chart-container').append("<p style='text-align:center'>Sem vizualização disponível</p>");
+        noView();
         return;
     }
     var data = [];
@@ -357,7 +360,7 @@ function addColumnChart(container) {
     var titles = [];
     var name;
     var dados;
-    if (container == "post") {
+    if (container == "posts") {
         name = "Postagens";
         dados = getPostData();
     } else if (container == "device") {
@@ -372,8 +375,7 @@ function addColumnChart(container) {
     } else if (container == "words") {
         name = "Palavras";
     } else {
-        $('#chart-container').html("");
-        $('#chart-container').append("<p style='text-align:center'>Sem vizualização disponível</p>");
+        noView();
         return;
     }
     if (container == "words") {
@@ -450,8 +452,7 @@ function addColumnChart(container) {
  */
 function addDrillDown(container) {
     if (container != "words") {
-        $('#chart-container').html("");
-        $('#chart-container').append("<p style='text-align:center'>Sem vizualização disponível</p>");
+        noView();
         return;
     }
     var words = getWordData();
@@ -561,4 +562,10 @@ function getWordDataTotal() {
         serie[i] = [words[i].name, words[i].total];
     }
     return serie;
+}
+
+function noView() {
+    $('#chart-container').html("");
+    $('#chart-container').append("<p>Sem vizualização disponível</p>");
+    $('#chart-container').append("<p class='minor-p'>Tente vizualizar com outro formato</p>");
 }

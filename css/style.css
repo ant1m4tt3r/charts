@@ -35,6 +35,12 @@ body {
 p {
     font: inherit;
     vertical-align: middle;
+    text-align: center;
+}
+
+.minor-p {
+  color: red;
+  font-size: 2.5vh;
 }
 
 .img-div {
